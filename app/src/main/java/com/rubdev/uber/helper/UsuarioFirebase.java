@@ -27,6 +27,17 @@ public class UsuarioFirebase {
         return usuario.getCurrentUser();
     }
 
+    public static Usuario getDadosUsuarioLogado(){
+        FirebaseUser firebaseUser = getUsuarioAtual();
+
+        Usuario usuario = new Usuario();
+        usuario.setId( firebaseUser.getUid() );
+        usuario.setEmail( firebaseUser.getEmail() );
+        usuario.setNome( firebaseUser.getDisplayName() );
+
+        return usuario;
+    }
+
     public static boolean atualizarNomeUsuario(String nome) {
 
         try {

@@ -37,7 +37,10 @@ import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.rubdev.uber.R;
 import com.rubdev.uber.config.ConfiguracaoFirebase;
+import com.rubdev.uber.helper.UsuarioFirebase;
 import com.rubdev.uber.model.Destino;
+import com.rubdev.uber.model.Requisicao;
+import com.rubdev.uber.model.Usuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,6 +55,8 @@ public class PassageiroActivity extends AppCompatActivity implements OnMapReadyC
     private FirebaseAuth autenticacao;
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private LatLng localPassageiro;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +139,17 @@ public class PassageiroActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private void salvarRequisicao(Destino destino){
+        Requisicao requisicao = new Requisicao();
+        requisicao.setDestino( destino );
+
+        Usuario usuarioPassageiro = UsuarioFirebase.getDadosUsuarioLogado();
+        usuarioPassageiro.setLatitude( String.valueOf( localPassageiro.latitude) );
+        usuarioPassageiro.setLongitude( String.valueOf( localPassageiro.longitude));
+
+        requisicao.setPassageiro( usuarioPassageiro );
+        requisicao.setStatus( Requisicao.STATUS_AGUARDANDO );
+        requisicao.salvar();
+
 
     }
 
@@ -161,17 +177,17 @@ public class PassageiroActivity extends AppCompatActivity implements OnMapReadyC
                 // recuperar lat e long
                 double latitude = location.getLatitude();
                 double longitude = location.getLongitude();
-                LatLng meuLocal = new LatLng(latitude, longitude);
+                localPassageiro = new LatLng(latitude, longitude);
 
                 mMap.clear();
                 mMap.addMarker(
                         new MarkerOptions()
-                                .position(meuLocal)
+                                .position( localPassageiro )
                                 .title("Meu local")
                                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.usuario))
                 );
                 mMap.moveCamera(
-                        CameraUpdateFactory.newLatLngZoom(meuLocal, 17)
+                        CameraUpdateFactory.newLatLngZoom(localPassageiro, 17)
                 );
             }
 
