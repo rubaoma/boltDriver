@@ -28,6 +28,6 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:onClick="aceitarCorrida"
-        android:text="@string/aceitar_corrida" />
+        android:text="@string/aceitar_carona" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if ( task.isSuccessful()){
 
-                    // Verificar o tipo de uusário logado
+                    // Verificar o tipo de usuário logado
                     // "Motorista" / "Passageiro"
 
                     UsuarioFirebase.redirecionarUsuarioLogado(LoginActivity.this);

@@ -72,7 +72,7 @@
         android:layout_height="60dp"
         android:layout_gravity="bottom"
         android:onClick="chamarCarro"
-        android:text="Chamar carro" />
+        android:text="@string/chamar_carona" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
